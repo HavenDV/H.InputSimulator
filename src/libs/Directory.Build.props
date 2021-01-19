@@ -20,8 +20,8 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Authors>havendv</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/HavenDV/$PROJECT_NAME$</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/HavenDV/$PROJECT_NAME$</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/HavenDV/H.InputSimulator</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/HavenDV/H.InputSimulator</RepositoryUrl>
     <PackageIcon>nuget_icon.png</PackageIcon>
   </PropertyGroup>
 

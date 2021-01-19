@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\libs\$PROJECT_NAME$\$PROJECT_NAME$.csproj" />
+    <ProjectReference Include="..\..\libs\H.InputSimulator\H.InputSimulator.csproj" />
   </ItemGroup>
 
 </Project>

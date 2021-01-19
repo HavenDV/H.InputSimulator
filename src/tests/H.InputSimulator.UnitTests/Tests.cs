@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace $PROJECT_NAME$.IntegrationTests
+namespace H.InputSimulator.UnitTests
 {
     [TestClass]
     public class Tests
