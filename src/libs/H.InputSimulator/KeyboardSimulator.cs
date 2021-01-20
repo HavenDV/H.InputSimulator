@@ -23,9 +23,7 @@ namespace WindowsInput
         /// <param name="inputSimulator">The <see cref="IInputSimulator"/> that owns this instance.</param>
         public KeyboardSimulator(IInputSimulator inputSimulator)
         {
-            if (inputSimulator == null) throw new ArgumentNullException("inputSimulator");
-
-            _inputSimulator = inputSimulator;
+            _inputSimulator = inputSimulator ?? throw new ArgumentNullException(nameof(inputSimulator));
             _messageDispatcher = new WindowsInputMessageDispatcher();
         }
 
@@ -37,15 +35,12 @@ namespace WindowsInput
         /// <exception cref="InvalidOperationException">If null is passed as the <paramref name="messageDispatcher"/>.</exception>
         internal KeyboardSimulator(IInputSimulator inputSimulator, IInputMessageDispatcher messageDispatcher)
         {
-            if (inputSimulator == null) throw new ArgumentNullException("inputSimulator");
-
-            if (messageDispatcher == null)
-                throw new InvalidOperationException(
-                    string.Format("The {0} cannot operate with a null {1}. Please provide a valid {1} instance to use for dispatching {2} messages.",
-                    typeof(KeyboardSimulator).Name, typeof(IInputMessageDispatcher).Name, typeof(INPUT).Name));
-
-            _inputSimulator = inputSimulator;
-            _messageDispatcher = messageDispatcher;
+            _inputSimulator = inputSimulator ?? throw new ArgumentNullException(nameof(inputSimulator));
+            _messageDispatcher = messageDispatcher ?? throw new InvalidOperationException(
+                $"The {nameof(KeyboardSimulator)} cannot operate " +
+                $"with a null {nameof(IInputMessageDispatcher)}. " +
+                $"Please provide a valid {nameof(IInputMessageDispatcher)} instance " +
+                $"to use for dispatching {nameof(INPUT)} messages.");
         }
 
         /// <summary>
@@ -54,13 +49,13 @@ namespace WindowsInput
         /// <value>The <see cref="IMouseSimulator"/> instance.</value>
         public IMouseSimulator Mouse { get { return _inputSimulator.Mouse; } }
 
-        private void ModifiersDown(InputBuilder builder, IEnumerable<VirtualKeyCode> modifierKeyCodes)
+        private static void ModifiersDown(InputBuilder builder, IEnumerable<VirtualKeyCode> modifierKeyCodes)
         {
             if (modifierKeyCodes == null) return;
             foreach (var key in modifierKeyCodes) builder.AddKeyDown(key);
         }
 
-        private void ModifiersUp(InputBuilder builder, IEnumerable<VirtualKeyCode> modifierKeyCodes)
+        private static void ModifiersUp(InputBuilder builder, IEnumerable<VirtualKeyCode> modifierKeyCodes)
         {
             if (modifierKeyCodes == null) return;
 
@@ -69,7 +64,7 @@ namespace WindowsInput
             while (stack.Count > 0) builder.AddKeyUp(stack.Pop());
         }
 
-        private void KeysPress(InputBuilder builder, IEnumerable<VirtualKeyCode> keyCodes)
+        private static void KeysPress(InputBuilder builder, IEnumerable<VirtualKeyCode> keyCodes)
         {
             if (keyCodes == null) return;
             foreach (var key in keyCodes) builder.AddKeyPress(key);
@@ -188,7 +183,9 @@ namespace WindowsInput
         /// <param name="text">The text to be simulated.</param>
         public IKeyboardSimulator TextEntry(string text)
         {
-            if (text.Length > UInt32.MaxValue / 2) throw new ArgumentException(string.Format("The text parameter is too long. It must be less than {0} characters.", UInt32.MaxValue / 2), "text");
+            text = text ?? throw new ArgumentNullException(nameof(text));
+            if (text.Length > UInt32.MaxValue / 2) throw new ArgumentException(
+                $"The text parameter is too long. It must be less than {UInt32.MaxValue / 2} characters.", nameof(text));
             var inputList = new InputBuilder().AddCharacters(text).ToArray();
             SendSimulatedInput(inputList);
             return this;

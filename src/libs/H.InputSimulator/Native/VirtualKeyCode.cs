@@ -6,6 +6,11 @@
     public enum VirtualKeyCode //: UInt16
     {
         /// <summary>
+        /// 
+        /// </summary>
+        None,
+
+        /// <summary>
         /// Left mouse button
         /// </summary>
         LBUTTON = 0x01,
