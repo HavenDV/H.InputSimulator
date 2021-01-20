@@ -18,8 +18,9 @@
   <PropertyGroup Label="Nuget">
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Authors>havendv</Authors>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>havendv, Michael Noonan, Theodoros Chatzigiannakis</Authors>
+    <Owners>havendv</Owners>
+    <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/HavenDV/H.InputSimulator</PackageProjectUrl>
     <RepositoryUrl>https://github.com/HavenDV/H.InputSimulator</RepositoryUrl>
     <PackageIcon>nuget_icon.png</PackageIcon>

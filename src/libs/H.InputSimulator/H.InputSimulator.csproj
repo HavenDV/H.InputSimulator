@@ -1,14 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net4.0;net4.5;netstandard2.0;netstandard1.0</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Label="NuGet">
-    <Version>1.0.0</Version>
+    <Version>1.0.8</Version>
     <PackageReleaseNotes></PackageReleaseNotes>
-    <Description>Description</Description>
-    <PackageTags></PackageTags>
+    <Description>Allows you to simulate global mouse and keyboard events.
+Features:
+- Supports scan codes and multi-language input.
+- Supports WPF/WinForms/Console windows apps.
+- Supports .NET Standard, .Net Core and .Net 5.
+
+Supported OS:
+- Windows
+    </Description>
+    <PackageTags>simulate, keyboard, mouse, input, netcore, netstandard, net5</PackageTags>
   </PropertyGroup>
 
 </Project>
