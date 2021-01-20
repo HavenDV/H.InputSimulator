@@ -1,7 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net4.0;net4.5;netstandard2.0;netstandard1.0</TargetFrameworks>
+    <TargetFrameworks>net4.0;net4.5;netstandard2.0;netstandard1.1</TargetFrameworks>
+    <RootNamespace>WindowsInput</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Label="NuGet">
