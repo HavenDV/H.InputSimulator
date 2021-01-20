@@ -18,7 +18,13 @@ Install-Package H.InputSimulator
 ### Usage
 
 ```cs
-// code
+using WindowsInput;
+
+var simulator = new InputSimulator();
+simulator.Keyboard.KeyDown(VirtualKeyCode.CONTROL);
+simulator.Keyboard.KeyDown(VirtualKeyCode.VK_V);
+simulator.Keyboard.KeyUp(VirtualKeyCode.VK_V);
+simulator.Keyboard.KeyUp(VirtualKeyCode.CONTROL);
 ```
 
 ### Contacts
