@@ -6,11 +6,6 @@
     <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
 
-  <PropertyGroup Label="Signing">
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(SolutionDir)src\key.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-
   <ItemGroup Label="CLSCompliant">
     <Compile Include="$(SolutionDir)src\CLSCompliantTrue.cs" />
   </ItemGroup>
@@ -45,6 +40,19 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Label="Tests">
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>
+        $(MSBuildProjectName).UnitTests, PublicKey=00240000048000009400000006020000002400005253413100040000010001001f19b61333e1eb711068408b81d6b1c75f72c3c87c0395f3aa057a917677d4bb6e6e50904842c62c8bef6633723c97df81f47ee772246fe89858fd7d7e68902cdc67919265616cc74593771e83b3534dde9993eb0ed7e119be2996aca3149326e0dec36bdc6084b93de79d32e6a8b3c55f8da727c52a08f9c3ab7d9af6e0ecca
+      </_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>
+        $(MSBuildProjectName).IntegrationTests, PublicKey=00240000048000009400000006020000002400005253413100040000010001001f19b61333e1eb711068408b81d6b1c75f72c3c87c0395f3aa057a917677d4bb6e6e50904842c62c8bef6633723c97df81f47ee772246fe89858fd7d7e68902cdc67919265616cc74593771e83b3534dde9993eb0ed7e119be2996aca3149326e0dec36bdc6084b93de79d32e6a8b3c55f8da727c52a08f9c3ab7d9af6e0ecca
+      </_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 
   <PropertyGroup Label="Analyzers">
