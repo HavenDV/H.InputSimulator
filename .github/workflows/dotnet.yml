@@ -45,7 +45,7 @@ jobs:
     
     - name: Build
       run: dotnet build 
-        src\libs\H.InputSimulator\H.InputSimulator.csproj
+        src/libs/H.InputSimulator/H.InputSimulator.csproj
         --configuration Release 
         --nologo
     
@@ -57,7 +57,7 @@ jobs:
           contains(join(github.event.commits.*.message), 'feat:') || 
           contains(join(github.event.commits.*.message), 'perf:')
       run: dotnet nuget push
-        src\**.nupkg
+        src/**.nupkg
         --api-key ${{ secrets.NUGET_KEY }}
         --source https://api.nuget.org/v3/index.json
         --skip-duplicate
