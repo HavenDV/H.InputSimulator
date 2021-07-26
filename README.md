@@ -5,7 +5,14 @@
 [![Requirements](https://img.shields.io/badge/Requirements-.NET%20Standard%202.0-blue.svg)](https://github.com/dotnet/standard/blob/master/docs/versions/netstandard2.0.md)
 [![Build Status](https://github.com/HavenDV/H.InputSimulator/workflows/.NET/badge.svg?branch=master)](https://github.com/HavenDV/H.InputSimulator/actions?query=workflow%3A%22.NET%22)
 
-Description
+Allows you to simulate global mouse and keyboard events.
+Features:
+- Supports scan codes and multi-language input.
+- Supports WPF/WinForms/Console windows apps.
+- Supports .NET Standard, .Net Core and .Net 5.
+
+Supported OS:
+- Windows
 
 ## Nuget
 
