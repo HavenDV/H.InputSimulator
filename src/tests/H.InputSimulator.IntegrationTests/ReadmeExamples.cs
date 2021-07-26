@@ -16,7 +16,7 @@ namespace WindowsInput.Tests
 
         [Test]
         [Explicit]
-        public void SelfDesctructMessage()
+        public void SelfDestructMessage()
         {
             new InputSimulator().Keyboard
                .ModifiedKeyStroke(VirtualKeyCode.LWIN, VirtualKeyCode.VK_R)
