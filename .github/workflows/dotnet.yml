@@ -6,7 +6,7 @@ jobs:
     strategy:
       matrix:
         dotnet: [ '5.0.x' ]
-        os: [ ubuntu-latest ]
+        os: [ windows-latest ]
 
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} - ${{ matrix.dotnet }}
@@ -34,23 +34,24 @@ jobs:
       
     - name: Generate Package Release Notes
       run: |
-        echo 'PACKAGE_RELEASE_NOTES<<EOF' >> $GITHUB_ENV
-        echo '⭐ Last 10 features:' >> $GITHUB_ENV
-        git log -10 --pretty=format:"- %s %cs" --grep=feat >> $GITHUB_ENV
-        echo '' >> $GITHUB_ENV
-        echo '🐞 Last 10 bug fixes:' >> $GITHUB_ENV
-        git log -10 --pretty=format:"- %s %cs" --grep=fix >> $GITHUB_ENV
-        echo '' >> $GITHUB_ENV
-        echo 'EOF' >> $GITHUB_ENV
+        echo 'PACKAGE_RELEASE_NOTES<<EOF' >> $env:GITHUB_ENV
+        echo '⭐ Last 10 features:' >> $env:GITHUB_ENV
+        git log -10 --pretty=format:"- %s %cs" --grep=feat >> $env:GITHUB_ENV
+        echo '' >> $env:GITHUB_ENV
+        echo '🐞 Last 10 bug fixes:' >> $env:GITHUB_ENV
+        git log -10 --pretty=format:"- %s %cs" --grep=fix >> $env:GITHUB_ENV
+        echo '' >> $env:GITHUB_ENV
+        echo 'EOF' >> $env:GITHUB_ENV
     
     - name: Build
-      run: dotnet build 
-        src/libs/H.InputSimulator/H.InputSimulator.csproj
+      run: dotnet build
         --configuration Release 
         --nologo
     
-    #- name: Run tests
-    #  run: dotnet test --configuration Release --nologo
+    - name: Run tests
+      run: dotnet test 
+        --configuration Release
+        --nologo
         
     - name: Publish
       if: contains(join(github.event.commits.*.message), 'fix:') || 
