@@ -8,6 +8,16 @@ namespace WindowsInput.Tests
     {
         [Test]
         [Explicit]
+        public void SelectCopyPaste()
+        {
+            new InputSimulator().Keyboard
+                .ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_A)
+                .ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_C)
+                .ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_V);
+        }
+
+        [Test]
+        [Explicit]
         public void OpenWindowsExplorer()
         {
             new InputSimulator().Keyboard

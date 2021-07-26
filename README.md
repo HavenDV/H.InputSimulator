@@ -22,19 +22,15 @@ Supported OS:
 Install-Package H.InputSimulator
 ```
 
-## Usage
-
-```cs
-using WindowsInput;
-
-var simulator = new InputSimulator();
-simulator.Keyboard.KeyDown(VirtualKeyCode.CONTROL);
-simulator.Keyboard.KeyDown(VirtualKeyCode.VK_V);
-simulator.Keyboard.KeyUp(VirtualKeyCode.VK_V);
-simulator.Keyboard.KeyUp(VirtualKeyCode.CONTROL);
-```
-
 ## Examples
+
+### SelectCopyPaste
+```cs
+new InputSimulator().Keyboard
+    .ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_A)
+    .ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_C)
+    .ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_V);
+```
 
 ### OpenWindowsExplorer
 ```cs
