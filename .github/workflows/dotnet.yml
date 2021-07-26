@@ -1,4 +1,4 @@
-name: .NET
+﻿name: .NET
 on: [ push ]
 
 jobs:
@@ -6,7 +6,7 @@ jobs:
     strategy:
       matrix:
         dotnet: [ '5.0.x' ]
-        os: [ windows-latest ]
+        os: [ ubuntu-latest ]
 
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} - ${{ matrix.dotnet }}
@@ -15,15 +15,33 @@ jobs:
     
     steps:
     - name: Getting code
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
+      with: 
+        fetch-depth: 50
           
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ matrix.dotnet }}
-    
-    - name: Clean
-      run: dotnet clean --configuration Release && dotnet nuget locals all --clear
+
+    - name: Generate build number
+      if: contains(join(github.event.commits.*.message), 'fix:') || 
+          contains(join(github.event.commits.*.message), 'feat:') || 
+          contains(join(github.event.commits.*.message), 'perf:')
+      uses: einaregilsson/build-number@v3
+      with:
+        token: ${{ secrets.github_token }}
+      
+    - name: Generate Package Release Notes
+      run: |
+        echo 'PACKAGE_RELEASE_NOTES<<EOF' >> $GITHUB_ENV
+        echo '⭐ Last 10 features:' >> $GITHUB_ENV
+        git log -10 --pretty=format:"- %s %cs" --grep=feat >> $GITHUB_ENV
+        echo '' >> $GITHUB_ENV
+        echo '🐞 Last 10 bug fixes:' >> $GITHUB_ENV
+        git log -10 --pretty=format:"- %s %cs" --grep=fix >> $GITHUB_ENV
+        echo '' >> $GITHUB_ENV
+        echo 'EOF' >> $GITHUB_ENV
     
     - name: Build
       run: dotnet build --configuration Release --nologo
@@ -32,6 +50,9 @@ jobs:
       run: dotnet test --configuration Release --nologo
         
     - name: Publish
+      if: contains(join(github.event.commits.*.message), 'fix:') || 
+          contains(join(github.event.commits.*.message), 'feat:') || 
+          contains(join(github.event.commits.*.message), 'perf:')
       run: dotnet nuget push
         src\**.nupkg
         --api-key ${{ secrets.NUGET_KEY }}

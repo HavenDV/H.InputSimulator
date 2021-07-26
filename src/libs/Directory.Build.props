@@ -11,21 +11,22 @@
   </ItemGroup>
 
   <PropertyGroup Label="Nuget">
+    <BUILD_NUMBER Condition="'$(BUILD_NUMBER)' == ''">1</BUILD_NUMBER>
+    <Version>1.2.$(BUILD_NUMBER)</Version>
+    <PackageReleaseNotes>$(PACKAGE_RELEASE_NOTES)</PackageReleaseNotes>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Authors>havendv, Michael Noonan, Theodoros Chatzigiannakis</Authors>
-    <Owners>havendv</Owners>
     <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/HavenDV/H.InputSimulator</PackageProjectUrl>
     <RepositoryUrl>https://github.com/HavenDV/H.InputSimulator</RepositoryUrl>
     <PackageIcon>nuget_icon.png</PackageIcon>
+    <!--<PackageReadmeFile>README.md</PackageReadmeFile>-->
   </PropertyGroup>
 
   <ItemGroup Label="Nuget">
-    <None Include="$(SolutionDir)assets\nuget_icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
+    <None Include="$(SolutionDir)assets\nuget_icon.png" Pack="true" PackagePath="\"/>
+    <None Include="$(SolutionDir)README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
   
   <PropertyGroup Label="Source Link">
@@ -57,9 +58,8 @@
 
   <PropertyGroup Label="Analyzers">
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
-	<AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisLevel>latest</AnalysisLevel>
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
-    <NoWarn>$(NoWarn);CA1707;CA1720;CA1712;CA1069;CA5392</NoWarn>
   </PropertyGroup>
 
 </Project>
