@@ -44,10 +44,13 @@ jobs:
         echo 'EOF' >> $GITHUB_ENV
     
     - name: Build
-      run: dotnet build --configuration Release --nologo
+      run: dotnet build 
+        src\libs\H.InputSimulator\H.InputSimulator.csproj
+        --configuration Release 
+        --nologo
     
-    - name: Run tests
-      run: dotnet test --configuration Release --nologo
+    #- name: Run tests
+    #  run: dotnet test --configuration Release --nologo
         
     - name: Publish
       if: contains(join(github.event.commits.*.message), 'fix:') || 
