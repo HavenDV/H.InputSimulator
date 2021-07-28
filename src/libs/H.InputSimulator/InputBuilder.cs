@@ -448,38 +448,24 @@ namespace WindowsInput
 
         private static MouseFlag ToMouseButtonDownFlag(MouseButton button)
         {
-            switch (button)
+            return button switch
             {
-                case MouseButton.LeftButton:
-                    return MouseFlag.LeftDown;
-
-                case MouseButton.MiddleButton:
-                    return MouseFlag.MiddleDown;
-
-                case MouseButton.RightButton:
-                    return MouseFlag.RightDown;
-
-                default:
-                    return MouseFlag.LeftDown;
-            }
+                MouseButton.LeftButton => MouseFlag.LeftDown,
+                MouseButton.MiddleButton => MouseFlag.MiddleDown,
+                MouseButton.RightButton => MouseFlag.RightDown,
+                _ => MouseFlag.LeftDown,
+            };
         }
 
         private static MouseFlag ToMouseButtonUpFlag(MouseButton button)
         {
-            switch (button)
+            return button switch
             {
-                case MouseButton.LeftButton:
-                    return MouseFlag.LeftUp;
-
-                case MouseButton.MiddleButton:
-                    return MouseFlag.MiddleUp;
-
-                case MouseButton.RightButton:
-                    return MouseFlag.RightUp;
-
-                default:
-                    return MouseFlag.LeftUp;
-            }
+                MouseButton.LeftButton => MouseFlag.LeftUp,
+                MouseButton.MiddleButton => MouseFlag.MiddleUp,
+                MouseButton.RightButton => MouseFlag.RightUp,
+                _ => MouseFlag.LeftUp,
+            };
         }
     }
 }
