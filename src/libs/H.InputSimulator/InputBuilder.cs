@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using WindowsInput.Native;
 
@@ -8,66 +7,8 @@ namespace WindowsInput
     /// <summary>
     /// A helper class for building a list of <see cref="INPUT"/> messages ready to be sent to the native Windows API.
     /// </summary>
-    internal class InputBuilder : IEnumerable<INPUT>
+    internal class InputBuilder : List<INPUT>
     {
-        /// <summary>
-        /// The public list of <see cref="INPUT"/> messages being built by this instance.
-        /// </summary>
-        private readonly List<INPUT> _inputList;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InputBuilder"/> class.
-        /// </summary>
-        public InputBuilder()
-        {
-            _inputList = new List<INPUT>();
-        }
-
-        /// <summary>
-        /// Returns the list of <see cref="INPUT"/> messages as a <see cref="System.Array"/> of <see cref="INPUT"/> messages.
-        /// </summary>
-        /// <returns>The <see cref="System.Array"/> of <see cref="INPUT"/> messages.</returns>
-        public INPUT[] ToArray()
-        {
-            return _inputList.ToArray();
-        }
-
-        /// <summary>
-        /// Returns an enumerator that iterates through the list of <see cref="INPUT"/> messages.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="IEnumerator{T}"/> that can be used to iterate through the list of <see cref="INPUT"/> messages.
-        /// </returns>
-        /// <filterpriority>1</filterpriority>
-        public IEnumerator<INPUT> GetEnumerator()
-        {
-            return _inputList.GetEnumerator();
-        }
-
-        /// <summary>
-        /// Returns an enumerator that iterates through the list of <see cref="INPUT"/> messages.
-        /// </summary>
-        /// <returns>
-        /// An <see cref="IEnumerator"/> object that can be used to iterate through the list of <see cref="INPUT"/> messages.
-        /// </returns>
-        /// <filterpriority>2</filterpriority>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        /// <summary>
-        /// Gets the <see cref="INPUT"/> at the specified position.
-        /// </summary>
-        /// <value>The <see cref="INPUT"/> message at the specified position.</value>
-        public INPUT this[int position]
-        {
-            get
-            {
-                return _inputList[position];
-            }
-        }
-
         /// <summary>
         /// Determines if the <see cref="VirtualKeyCode"/> is an ExtendedKey
         /// </summary>
@@ -132,7 +73,7 @@ namespace WindowsInput
                             }
                     };
 
-            _inputList.Add(down);
+            Add(down);
             return this;
         }
 
@@ -163,7 +104,7 @@ namespace WindowsInput
                             }
                     };
 
-            _inputList.Add(up);
+            Add(up);
             return this;
         }
 
@@ -232,8 +173,8 @@ namespace WindowsInput
                 up.Data.Keyboard.Flags |= (UInt32)KeyboardFlag.ExtendedKey;
             }
 
-            _inputList.Add(down);
-            _inputList.Add(up);
+            Add(down);
+            Add(up);
             return this;
         }
 
@@ -274,7 +215,7 @@ namespace WindowsInput
             movement.Data.Mouse.X = x;
             movement.Data.Mouse.Y = y;
 
-            _inputList.Add(movement);
+            Add(movement);
 
             return this;
         }
@@ -292,7 +233,7 @@ namespace WindowsInput
             movement.Data.Mouse.X = absoluteX;
             movement.Data.Mouse.Y = absoluteY;
 
-            _inputList.Add(movement);
+            Add(movement);
 
             return this;
         }
@@ -310,7 +251,7 @@ namespace WindowsInput
             movement.Data.Mouse.X = absoluteX;
             movement.Data.Mouse.Y = absoluteY;
 
-            _inputList.Add(movement);
+            Add(movement);
 
             return this;
         }
@@ -325,7 +266,7 @@ namespace WindowsInput
             var buttonDown = new INPUT { Type = (UInt32)InputType.Mouse };
             buttonDown.Data.Mouse.Flags = (UInt32)ToMouseButtonDownFlag(button);
 
-            _inputList.Add(buttonDown);
+            Add(buttonDown);
 
             return this;
         }
@@ -340,7 +281,7 @@ namespace WindowsInput
             var buttonDown = new INPUT { Type = (UInt32)InputType.Mouse };
             buttonDown.Data.Mouse.Flags = (UInt32)MouseFlag.XDown;
             buttonDown.Data.Mouse.MouseData = (UInt32)xButtonId;
-            _inputList.Add(buttonDown);
+            Add(buttonDown);
 
             return this;
         }
@@ -354,7 +295,7 @@ namespace WindowsInput
         {
             var buttonUp = new INPUT { Type = (UInt32)InputType.Mouse };
             buttonUp.Data.Mouse.Flags = (UInt32)ToMouseButtonUpFlag(button);
-            _inputList.Add(buttonUp);
+            Add(buttonUp);
 
             return this;
         }
@@ -369,7 +310,7 @@ namespace WindowsInput
             var buttonUp = new INPUT { Type = (UInt32)InputType.Mouse };
             buttonUp.Data.Mouse.Flags = (UInt32)MouseFlag.XUp;
             buttonUp.Data.Mouse.MouseData = (UInt32)xButtonId;
-            _inputList.Add(buttonUp);
+            Add(buttonUp);
 
             return this;
         }
@@ -425,7 +366,7 @@ namespace WindowsInput
             scroll.Data.Mouse.Flags = (UInt32)MouseFlag.VerticalWheel;
             scroll.Data.Mouse.MouseData = (UInt32)scrollAmount;
 
-            _inputList.Add(scroll);
+            Add(scroll);
 
             return this;
         }
@@ -441,7 +382,7 @@ namespace WindowsInput
             scroll.Data.Mouse.Flags = (UInt32)MouseFlag.HorizontalWheel;
             scroll.Data.Mouse.MouseData = (UInt32)scrollAmount;
 
-            _inputList.Add(scroll);
+            Add(scroll);
 
             return this;
         }
