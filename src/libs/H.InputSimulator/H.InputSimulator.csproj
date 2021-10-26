@@ -11,12 +11,12 @@
 Features:
 - Supports scan codes and multi-language input.
 - Supports WPF/WinForms/Console windows apps.
-- Supports .NET Standard, .Net Core and .Net 5.
+- Supports .NET Standard, .Net Core and .Net 5/6.
 
 Supported OS:
 - Windows
     </Description>
-    <PackageTags>simulate, keyboard, mouse, input, netcore, netstandard, net5</PackageTags>
+    <PackageTags>simulate, keyboard, mouse, input, netcore, netstandard, net5, net6</PackageTags>
   </PropertyGroup>
 
 </Project>
