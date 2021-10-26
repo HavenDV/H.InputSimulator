@@ -1,64 +1,11 @@
-﻿name: .NET
+﻿name: Build, test and publish
 on: [ push ]
 
 jobs:
-  build:
-    strategy:
-      matrix:
-        dotnet: [ '5.0.x' ]
-        os: [ windows-latest ]
-
-    runs-on: ${{ matrix.os }}
-    name: ${{ matrix.os }} - ${{ matrix.dotnet }}
-    env:
-      DOTNET_NOLOGO: true
-    
-    steps:
-    - name: Getting code
-      uses: actions/checkout@v2
-      with: 
-        fetch-depth: 50
-          
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: ${{ matrix.dotnet }}
-
-    - name: Generate build number
-      if: contains(join(github.event.commits.*.message), 'fix:') || 
-          contains(join(github.event.commits.*.message), 'feat:') || 
-          contains(join(github.event.commits.*.message), 'perf:')
-      uses: einaregilsson/build-number@v3
-      with:
-        token: ${{ secrets.github_token }}
-      
-    - name: Generate Package Release Notes
-      run: |
-        echo 'PACKAGE_RELEASE_NOTES<<EOF' >> $env:GITHUB_ENV
-        echo '⭐ Last 10 features:' >> $env:GITHUB_ENV
-        git log -10 --pretty=format:"- %s %cs" --grep=feat >> $env:GITHUB_ENV
-        echo '' >> $env:GITHUB_ENV
-        echo '🐞 Last 10 bug fixes:' >> $env:GITHUB_ENV
-        git log -10 --pretty=format:"- %s %cs" --grep=fix >> $env:GITHUB_ENV
-        echo '' >> $env:GITHUB_ENV
-        echo 'EOF' >> $env:GITHUB_ENV
-    
-    - name: Build
-      run: dotnet build
-        --configuration Release 
-        --nologo
-    
-    - name: Run tests
-      run: dotnet test 
-        --configuration Release
-        --nologo
-        
-    - name: Publish
-      if: contains(join(github.event.commits.*.message), 'fix:') || 
-          contains(join(github.event.commits.*.message), 'feat:') || 
-          contains(join(github.event.commits.*.message), 'perf:')
-      run: dotnet nuget push
-        src/**.nupkg
-        --api-key ${{ secrets.NUGET_KEY }}
-        --source https://api.nuget.org/v3/index.json
-        --skip-duplicate
+  build-test-publish:
+    name: Build, test and publish
+    uses: HavenDV/workflows/.github/workflows/dotnet_build-test-publish.yml@main
+    with:
+      os: windows-latest
+    secrets:
+      nuget-key: ${{ secrets.NUGET_KEY }}
