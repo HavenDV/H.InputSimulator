@@ -11,6 +11,11 @@
     <PackageReference Include="FluentAssertions" Version="6.1.0" />
   </ItemGroup>
 
+  <ItemGroup Label="GlobalUsings">
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+    <Using Include="FluentAssertions" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\libs\H.InputSimulator\H.InputSimulator.csproj" />
   </ItemGroup>
