@@ -3,13 +3,13 @@ namespace WindowsInput.Tests.UnicodeText;
 [TestFixture]
 public class UnicodeTextTests
 {
-    public TestCaseData[] UnicodeTestCases { get; } = GetUnicodeRanges()
+    public static TestCaseData[] UnicodeTestCases { get; } = GetUnicodeRanges()
         .Select(static input => new TestCaseData(input).SetName(input.Name))
         .ToArray();
 
     [Test]
     [Explicit]
-    [TestCaseSource("UnicodeTestCases")]
+    [TestCaseSource(nameof(UnicodeTestCases))]
     public void TestUnicodeRanges(UnicodeRange range)
     {
         // ReSharper disable AccessToDisposedClosure

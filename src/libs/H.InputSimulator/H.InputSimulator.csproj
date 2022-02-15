@@ -1,10 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net4.0;net4.5;netstandard2.0;netstandard1.1</TargetFrameworks>
+    <TargetFrameworks>net4.5.1;netstandard2.0;netstandard1.1</TargetFrameworks>
     <RootNamespace>WindowsInput</RootNamespace>
     <NoWarn>$(NoWarn);CA1707;CA1720;CA1712;CA1069;CA5392</NoWarn>
   </PropertyGroup>
+
+  <ItemGroup Label="Usings">
+    <Using Remove="System.Net.Http"/>
+  </ItemGroup>
 
   <PropertyGroup Label="NuGet">
     <Description>Allows you to simulate global mouse and keyboard events.
