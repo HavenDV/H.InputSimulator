@@ -20,6 +20,12 @@ public interface IKeyboardSimulator
     IKeyboardSimulator KeyDown(VirtualKeyCode keyCode);
 
     /// <summary>
+    /// Simulates the key down gesture for the specified key codes in the order they are specified.
+    /// </summary>
+    /// <param name="keyCodes"></param>
+    IKeyboardSimulator KeyDown(params VirtualKeyCode[] keyCodes);
+
+    /// <summary>
     /// Simulates the key press gesture for the specified key.
     /// </summary>
     /// <param name="keyCode">The <see cref="VirtualKeyCode"/> for the key.</param>
@@ -36,6 +42,12 @@ public interface IKeyboardSimulator
     /// </summary>
     /// <param name="keyCode">The <see cref="VirtualKeyCode"/> for the key.</param>
     IKeyboardSimulator KeyUp(VirtualKeyCode keyCode);
+
+    /// <summary>
+    /// Simulates the key up gesture for the specified key codes in the reverse order they are specified.
+    /// </summary>
+    /// <param name="keyCodes"></param>
+    IKeyboardSimulator KeyUp(params VirtualKeyCode[] keyCodes);
 
     /// <summary>
     /// Simulates a modified keystroke where there are multiple modifiers and multiple keys like CTRL-ALT-K-C where CTRL and ALT are the modifierKeys and K and C are the keys.

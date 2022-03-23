@@ -134,6 +134,25 @@ public class KeyboardSimulator : IKeyboardSimulator
     }
 
     /// <summary>
+    /// Calls the Win32 SendInput method to simulate a KeyDown
+    /// for the specified key codes in the order they are specified.
+    /// </summary>
+    /// <param name="keyCodes"></param>
+    public IKeyboardSimulator KeyDown(params VirtualKeyCode[] keyCodes)
+    {
+        keyCodes = keyCodes ?? throw new ArgumentNullException(nameof(keyCodes));
+
+        var builder = new InputBuilder();
+        foreach (var code in keyCodes)
+        {
+            builder.AddKeyDown(code);
+        }
+
+        SendSimulatedInput(builder.ToArray());
+        return this;
+    }
+
+    /// <summary>
     /// Calls the Win32 SendInput method to simulate a KeyUp.
     /// </summary>
     /// <param name="keyCode">The <see cref="VirtualKeyCode"/> to lift up</param>
@@ -141,6 +160,25 @@ public class KeyboardSimulator : IKeyboardSimulator
     {
         var inputList = new InputBuilder().AddKeyUp(keyCode).ToArray();
         SendSimulatedInput(inputList);
+        return this;
+    }
+
+    /// <summary>
+    /// Calls the Win32 SendInput method to simulate a KeyUp
+    /// for the specified key codes in the reverse order they are specified.
+    /// </summary>
+    /// <param name="keyCodes"></param>
+    public IKeyboardSimulator KeyUp(params VirtualKeyCode[] keyCodes)
+    {
+        keyCodes = keyCodes ?? throw new ArgumentNullException(nameof(keyCodes));
+
+        var builder = new InputBuilder();
+        foreach (var code in keyCodes.Reverse())
+        {
+            builder.AddKeyUp(code);
+        }
+
+        SendSimulatedInput(builder.ToArray());
         return this;
     }
 
