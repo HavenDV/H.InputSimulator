@@ -6,6 +6,12 @@ namespace WindowsInput;
 /// A helper class for building a list of <see cref="INPUT"/> messages ready 
 /// to be sent to the native Windows API.
 /// </summary>
+#if NET5_0_OR_GREATER
+[System.Runtime.Versioning.SupportedOSPlatform("windows")]
+#elif NETSTANDARD1_1_OR_GREATER || NET451_OR_GREATER
+#else
+#error Target Framework is not supported
+#endif
 internal class InputBuilder : List<INPUT>
 {
     /// <summary>

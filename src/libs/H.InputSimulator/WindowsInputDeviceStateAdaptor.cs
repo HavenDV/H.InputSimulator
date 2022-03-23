@@ -5,6 +5,12 @@ namespace WindowsInput;
 /// <summary>
 /// An implementation of <see cref="IInputDeviceStateAdaptor"/> for Windows by calling the native <see cref="NativeMethods.GetKeyState"/> and <see cref="NativeMethods.GetAsyncKeyState"/> methods.
 /// </summary>
+#if NET5_0_OR_GREATER
+[System.Runtime.Versioning.SupportedOSPlatform("windows")]
+#elif NETSTANDARD1_1_OR_GREATER || NET451_OR_GREATER
+#else
+#error Target Framework is not supported
+#endif
 public class WindowsInputDeviceStateAdaptor : IInputDeviceStateAdaptor
 {
 

@@ -5,6 +5,12 @@ namespace WindowsInput.Native;
 /// <summary>
 /// References all of the Native Windows API methods for the WindowsInput functionality.
 /// </summary>
+#if NET5_0_OR_GREATER
+[System.Runtime.Versioning.SupportedOSPlatform("windows")]
+#elif NETSTANDARD1_1_OR_GREATER || NET451_OR_GREATER
+#else
+#error Target Framework is not supported
+#endif
 internal static class NativeMethods
 {
     /// <summary>

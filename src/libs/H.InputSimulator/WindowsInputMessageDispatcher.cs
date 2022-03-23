@@ -6,6 +6,12 @@ namespace WindowsInput;
 /// <summary>
 /// Implements the <see cref="IInputMessageDispatcher"/> by calling <see cref="Native.NativeMethods.SendInput"/>.
 /// </summary>
+#if NET5_0_OR_GREATER
+[System.Runtime.Versioning.SupportedOSPlatform("windows")]
+#elif NETSTANDARD1_1_OR_GREATER || NET451_OR_GREATER
+#else
+#error Target Framework is not supported
+#endif
 internal class WindowsInputMessageDispatcher : IInputMessageDispatcher
 {
     /// <summary>
