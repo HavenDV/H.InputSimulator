@@ -3,10 +3,10 @@
 namespace WindowsInput;
 
 /// <summary>
-/// An implementation of <see cref="IInputDeviceStateAdaptor"/> for Windows by calling the native <see cref="NativeMethods.GetKeyState"/> and <see cref="NativeMethods.GetAsyncKeyState"/> methods.
+/// An implementation of <see cref="IInputDeviceStateAdaptor"/> for Windows by calling the native <see cref="PInvoke.GetKeyState"/> and <see cref="PInvoke.GetAsyncKeyState"/> methods.
 /// </summary>
 #if NET5_0_OR_GREATER
-[System.Runtime.Versioning.SupportedOSPlatform("windows")]
+[System.Runtime.Versioning.SupportedOSPlatform("windows5.0")]
 #elif NETSTANDARD1_1_OR_GREATER || NET451_OR_GREATER
 #else
 #error Target Framework is not supported
@@ -37,12 +37,12 @@ public class WindowsInputDeviceStateAdaptor : IInputDeviceStateAdaptor
     /// </remarks>
     public bool IsKeyDown(VirtualKeyCode keyCode)
     {
-        Int16 result = NativeMethods.GetKeyState((UInt16)keyCode);
+        Int16 result = PInvoke.GetKeyState((UInt16)keyCode);
         return (result < 0);
     }
 
     /// <summary>
-    /// Determines whether the specified key is up or downby calling the <see cref="NativeMethods.GetKeyState"/> function. (See: http://msdn.microsoft.com/en-us/library/ms646301(VS.85).aspx)
+    /// Determines whether the specified key is up or downby calling the <see cref="PInvoke.GetKeyState"/> function. (See: http://msdn.microsoft.com/en-us/library/ms646301(VS.85).aspx)
     /// </summary>
     /// <param name="keyCode">The <see cref="VirtualKeyCode"/> for the key.</param>
     /// <returns>
@@ -68,7 +68,7 @@ public class WindowsInputDeviceStateAdaptor : IInputDeviceStateAdaptor
     }
 
     /// <summary>
-    /// Determines whether the physical key is up or down at the time the function is called regardless of whether the application thread has read the keyboard event from the message pump by calling the <see cref="NativeMethods.GetAsyncKeyState"/> function. (See: http://msdn.microsoft.com/en-us/library/ms646293(VS.85).aspx)
+    /// Determines whether the physical key is up or down at the time the function is called regardless of whether the application thread has read the keyboard event from the message pump by calling the <see cref="PInvoke.GetAsyncKeyState"/> function. (See: http://msdn.microsoft.com/en-us/library/ms646293(VS.85).aspx)
     /// </summary>
     /// <param name="keyCode">The <see cref="VirtualKeyCode"/> for the key.</param>
     /// <returns>
@@ -96,12 +96,12 @@ public class WindowsInputDeviceStateAdaptor : IInputDeviceStateAdaptor
     /// </remarks>
     public bool IsHardwareKeyDown(VirtualKeyCode keyCode)
     {
-        var result = NativeMethods.GetAsyncKeyState((UInt16)keyCode);
+        var result = PInvoke.GetAsyncKeyState((int)keyCode);
         return (result < 0);
     }
 
     /// <summary>
-    /// Determines whether the physical key is up or down at the time the function is called regardless of whether the application thread has read the keyboard event from the message pump by calling the <see cref="NativeMethods.GetAsyncKeyState"/> function. (See: http://msdn.microsoft.com/en-us/library/ms646293(VS.85).aspx)
+    /// Determines whether the physical key is up or down at the time the function is called regardless of whether the application thread has read the keyboard event from the message pump by calling the <see cref="PInvoke.GetAsyncKeyState"/> function. (See: http://msdn.microsoft.com/en-us/library/ms646293(VS.85).aspx)
     /// </summary>
     /// <param name="keyCode">The <see cref="VirtualKeyCode"/> for the key.</param>
     /// <returns>
@@ -133,7 +133,7 @@ public class WindowsInputDeviceStateAdaptor : IInputDeviceStateAdaptor
     }
 
     /// <summary>
-    /// Determines whether the toggling key is toggled on (in-effect) or not by calling the <see cref="NativeMethods.GetKeyState"/> function.  (See: http://msdn.microsoft.com/en-us/library/ms646301(VS.85).aspx)
+    /// Determines whether the toggling key is toggled on (in-effect) or not by calling the <see cref="PInvoke.GetKeyState"/> function.  (See: http://msdn.microsoft.com/en-us/library/ms646301(VS.85).aspx)
     /// </summary>
     /// <param name="keyCode">The <see cref="VirtualKeyCode"/> for the key.</param>
     /// <returns>
@@ -155,7 +155,7 @@ public class WindowsInputDeviceStateAdaptor : IInputDeviceStateAdaptor
     /// </remarks>
     public bool IsTogglingKeyInEffect(VirtualKeyCode keyCode)
     {
-        Int16 result = NativeMethods.GetKeyState((UInt16)keyCode);
+        var result = PInvoke.GetKeyState((int)keyCode);
         return (result & 0x01) == 0x01;
     }
 }

@@ -5,7 +5,7 @@
 /// simulate Keyboard and Mouse input and provide the state of those input devices.
 /// </summary>
 #if NET5_0_OR_GREATER
-[System.Runtime.Versioning.SupportedOSPlatform("windows")]
+[System.Runtime.Versioning.SupportedOSPlatform("windows5.0")]
 #elif NETSTANDARD1_1_OR_GREATER || NET451_OR_GREATER
 #else
 #error Target Framework is not supported

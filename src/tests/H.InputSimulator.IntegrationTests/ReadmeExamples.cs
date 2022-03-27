@@ -38,6 +38,7 @@ public class ReadmeExamples
            .TextEntry("This message will self destruct in 5 seconds.")
            .Sleep(5000)
            .ModifiedKeyStroke(VirtualKeyCode.MENU, VirtualKeyCode.F4)
+           .Sleep(1000)
            .KeyPress(VirtualKeyCode.VK_N);
     }
 

@@ -7,7 +7,7 @@ namespace WindowsInput;
 /// to be sent to the native Windows API.
 /// </summary>
 #if NET5_0_OR_GREATER
-[System.Runtime.Versioning.SupportedOSPlatform("windows")]
+[System.Runtime.Versioning.SupportedOSPlatform("windows5.0")]
 #elif NETSTANDARD1_1_OR_GREATER || NET451_OR_GREATER
 #else
 #error Target Framework is not supported
@@ -59,18 +59,18 @@ internal class InputBuilder : List<INPUT>
     {
         var down = new INPUT
         {
-            Type = (uint)InputType.Keyboard,
-            Data =
+            type = INPUT_TYPE.INPUT_KEYBOARD,
+            Anonymous = new INPUT._Anonymous_e__Union
             {
-                Keyboard = new KEYBDINPUT
+                ki = new KEYBDINPUT
                 {
-                    KeyCode = (ushort) keyCode,
-                    Scan = (ushort)(NativeMethods.MapVirtualKey((uint)keyCode, 0) & 0xFFU),
-                    Flags = IsExtendedKey(keyCode)
-                        ? (uint) KeyboardFlag.ExtendedKey
+                    wVk = (VIRTUAL_KEY)keyCode,
+                    wScan = (ushort)(PInvoke.MapVirtualKey((uint)keyCode, 0) & 0xFFU),
+                    dwFlags = IsExtendedKey(keyCode)
+                        ? KEYBD_EVENT_FLAGS.KEYEVENTF_EXTENDEDKEY
                         : 0,
-                    Time = 0,
-                    ExtraInfo = IntPtr.Zero,
+                    time = 0,
+                    dwExtraInfo = 0,
                 },
             },
         };
@@ -89,18 +89,18 @@ internal class InputBuilder : List<INPUT>
     {
         var up = new INPUT
         {
-            Type = (uint)InputType.Keyboard,
-            Data =
+            type = INPUT_TYPE.INPUT_KEYBOARD,
+            Anonymous = new INPUT._Anonymous_e__Union
             {
-                Keyboard = new KEYBDINPUT
+                ki = new KEYBDINPUT
                 {
-                    KeyCode = (ushort) keyCode,
-                    Scan = (ushort)(NativeMethods.MapVirtualKey((uint)keyCode, 0) & 0xFFU),
-                    Flags = (uint) (IsExtendedKey(keyCode)
-                        ? KeyboardFlag.KeyUp | KeyboardFlag.ExtendedKey
-                        : KeyboardFlag.KeyUp),
-                    Time = 0,
-                    ExtraInfo = IntPtr.Zero,
+                    wVk = (VIRTUAL_KEY) keyCode,
+                    wScan = (ushort)(PInvoke.MapVirtualKey((uint)keyCode, 0) & 0xFFU),
+                    dwFlags = IsExtendedKey(keyCode)
+                        ? KEYBD_EVENT_FLAGS.KEYEVENTF_KEYUP | KEYBD_EVENT_FLAGS.KEYEVENTF_EXTENDEDKEY
+                        : KEYBD_EVENT_FLAGS.KEYEVENTF_KEYUP,
+                    time = 0,
+                    dwExtraInfo = 0,
                 },
             },
         };
@@ -134,32 +134,32 @@ internal class InputBuilder : List<INPUT>
 
         var down = new INPUT
         {
-            Type = (uint)InputType.Keyboard,
-            Data =
+            type = INPUT_TYPE.INPUT_KEYBOARD,
+            Anonymous = new INPUT._Anonymous_e__Union
             {
-                Keyboard = new KEYBDINPUT
+                ki = new KEYBDINPUT
                 {
-                    KeyCode = 0,
-                    Scan = scanCode,
-                    Flags = (uint)KeyboardFlag.Unicode,
-                    Time = 0,
-                    ExtraInfo = IntPtr.Zero,
+                    wVk = 0,
+                    wScan = scanCode,
+                    dwFlags = KEYBD_EVENT_FLAGS.KEYEVENTF_UNICODE,
+                    time = 0,
+                    dwExtraInfo = 0,
                 },
             },
         };
 
         var up = new INPUT
         {
-            Type = (uint)InputType.Keyboard,
-            Data =
+            type = INPUT_TYPE.INPUT_KEYBOARD,
+            Anonymous = new INPUT._Anonymous_e__Union
             {
-                Keyboard = new KEYBDINPUT
+                ki = new KEYBDINPUT
                 {
-                    KeyCode = 0,
-                    Scan = scanCode,
-                    Flags = (uint)(KeyboardFlag.KeyUp | KeyboardFlag.Unicode),
-                    Time = 0,
-                    ExtraInfo = IntPtr.Zero,
+                    wVk = 0,
+                    wScan = scanCode,
+                    dwFlags = KEYBD_EVENT_FLAGS.KEYEVENTF_KEYUP | KEYBD_EVENT_FLAGS.KEYEVENTF_UNICODE,
+                    time = 0,
+                    dwExtraInfo = 0,
                 },
             },
         };
@@ -169,8 +169,8 @@ internal class InputBuilder : List<INPUT>
         // we need to include the KEYEVENTF_EXTENDEDKEY flag in the Flags property. 
         if ((scanCode & 0xFF00) == 0xE000)
         {
-            down.Data.Keyboard.Flags |= (uint)KeyboardFlag.ExtendedKey;
-            up.Data.Keyboard.Flags |= (uint)KeyboardFlag.ExtendedKey;
+            down.Anonymous.ki.dwFlags |= KEYBD_EVENT_FLAGS.KEYEVENTF_EXTENDEDKEY;
+            up.Anonymous.ki.dwFlags |= KEYBD_EVENT_FLAGS.KEYEVENTF_EXTENDEDKEY;
         }
 
         Add(down);
@@ -212,10 +212,13 @@ internal class InputBuilder : List<INPUT>
     /// <returns>This <see cref="InputBuilder"/> instance.</returns>
     public InputBuilder AddRelativeMouseMovement(int x, int y)
     {
-        var movement = new INPUT { Type = (uint)InputType.Mouse };
-        movement.Data.Mouse.Flags = (uint)MouseFlag.Move;
-        movement.Data.Mouse.X = x;
-        movement.Data.Mouse.Y = y;
+        var movement = new INPUT
+        {
+            type = INPUT_TYPE.INPUT_MOUSE,
+        };
+        movement.Anonymous.mi.dwFlags = MOUSE_EVENT_FLAGS.MOUSEEVENTF_MOVE;
+        movement.Anonymous.mi.dx = x;
+        movement.Anonymous.mi.dy = y;
 
         Add(movement);
 
@@ -230,10 +233,15 @@ internal class InputBuilder : List<INPUT>
     /// <returns>This <see cref="InputBuilder"/> instance.</returns>
     public InputBuilder AddAbsoluteMouseMovement(int absoluteX, int absoluteY)
     {
-        var movement = new INPUT { Type = (uint)InputType.Mouse };
-        movement.Data.Mouse.Flags = (uint)(MouseFlag.Move | MouseFlag.Absolute);
-        movement.Data.Mouse.X = absoluteX;
-        movement.Data.Mouse.Y = absoluteY;
+        var movement = new INPUT
+        {
+            type = INPUT_TYPE.INPUT_MOUSE,
+        };
+        movement.Anonymous.mi.dwFlags =
+            MOUSE_EVENT_FLAGS.MOUSEEVENTF_MOVE |
+            MOUSE_EVENT_FLAGS.MOUSEEVENTF_ABSOLUTE;
+        movement.Anonymous.mi.dx = absoluteX;
+        movement.Anonymous.mi.dy = absoluteY;
 
         Add(movement);
 
@@ -248,10 +256,16 @@ internal class InputBuilder : List<INPUT>
     /// <returns>This <see cref="InputBuilder"/> instance.</returns>
     public InputBuilder AddAbsoluteMouseMovementOnVirtualDesktop(int absoluteX, int absoluteY)
     {
-        var movement = new INPUT { Type = (uint)InputType.Mouse };
-        movement.Data.Mouse.Flags = (uint)(MouseFlag.Move | MouseFlag.Absolute | MouseFlag.VirtualDesk);
-        movement.Data.Mouse.X = absoluteX;
-        movement.Data.Mouse.Y = absoluteY;
+        var movement = new INPUT
+        {
+            type = INPUT_TYPE.INPUT_MOUSE,
+        };
+        movement.Anonymous.mi.dwFlags =
+            MOUSE_EVENT_FLAGS.MOUSEEVENTF_MOVE |
+            MOUSE_EVENT_FLAGS.MOUSEEVENTF_ABSOLUTE |
+            MOUSE_EVENT_FLAGS.MOUSEEVENTF_VIRTUALDESK;
+        movement.Anonymous.mi.dx = absoluteX;
+        movement.Anonymous.mi.dy = absoluteY;
 
         Add(movement);
 
@@ -265,8 +279,11 @@ internal class InputBuilder : List<INPUT>
     /// <returns>This <see cref="InputBuilder"/> instance.</returns>
     public InputBuilder AddMouseButtonDown(MouseButton button)
     {
-        var buttonDown = new INPUT { Type = (uint)InputType.Mouse };
-        buttonDown.Data.Mouse.Flags = (uint)ToMouseButtonDownFlag(button);
+        var buttonDown = new INPUT
+        {
+            type = INPUT_TYPE.INPUT_MOUSE,
+        };
+        buttonDown.Anonymous.mi.dwFlags = ToMouseButtonDownFlag(button);
 
         Add(buttonDown);
 
@@ -280,9 +297,12 @@ internal class InputBuilder : List<INPUT>
     /// <returns>This <see cref="InputBuilder"/> instance.</returns>
     public InputBuilder AddMouseXButtonDown(int xButtonId)
     {
-        var buttonDown = new INPUT { Type = (uint)InputType.Mouse };
-        buttonDown.Data.Mouse.Flags = (uint)MouseFlag.XDown;
-        buttonDown.Data.Mouse.MouseData = (uint)xButtonId;
+        var buttonDown = new INPUT
+        {
+            type = INPUT_TYPE.INPUT_MOUSE,
+        };
+        buttonDown.Anonymous.mi.dwFlags = MOUSE_EVENT_FLAGS.MOUSEEVENTF_XDOWN;
+        buttonDown.Anonymous.mi.mouseData = (uint)xButtonId;
         Add(buttonDown);
 
         return this;
@@ -295,8 +315,11 @@ internal class InputBuilder : List<INPUT>
     /// <returns>This <see cref="InputBuilder"/> instance.</returns>
     public InputBuilder AddMouseButtonUp(MouseButton button)
     {
-        var buttonUp = new INPUT { Type = (uint)InputType.Mouse };
-        buttonUp.Data.Mouse.Flags = (uint)ToMouseButtonUpFlag(button);
+        var buttonUp = new INPUT
+        {
+            type = INPUT_TYPE.INPUT_MOUSE,
+        };
+        buttonUp.Anonymous.mi.dwFlags = ToMouseButtonUpFlag(button);
         Add(buttonUp);
 
         return this;
@@ -309,9 +332,12 @@ internal class InputBuilder : List<INPUT>
     /// <returns>This <see cref="InputBuilder"/> instance.</returns>
     public InputBuilder AddMouseXButtonUp(int xButtonId)
     {
-        var buttonUp = new INPUT { Type = (uint)InputType.Mouse };
-        buttonUp.Data.Mouse.Flags = (uint)MouseFlag.XUp;
-        buttonUp.Data.Mouse.MouseData = (uint)xButtonId;
+        var buttonUp = new INPUT
+        {
+            type = INPUT_TYPE.INPUT_MOUSE,
+        };
+        buttonUp.Anonymous.mi.dwFlags = MOUSE_EVENT_FLAGS.MOUSEEVENTF_XUP;
+        buttonUp.Anonymous.mi.mouseData = (uint)xButtonId;
         Add(buttonUp);
 
         return this;
@@ -364,9 +390,12 @@ internal class InputBuilder : List<INPUT>
     /// <returns>This <see cref="InputBuilder"/> instance.</returns>
     public InputBuilder AddMouseVerticalWheelScroll(int scrollAmount)
     {
-        var scroll = new INPUT { Type = (uint)InputType.Mouse };
-        scroll.Data.Mouse.Flags = (uint)MouseFlag.VerticalWheel;
-        scroll.Data.Mouse.MouseData = (uint)scrollAmount;
+        var scroll = new INPUT
+        {
+            type = INPUT_TYPE.INPUT_MOUSE,
+        };
+        scroll.Anonymous.mi.dwFlags = MOUSE_EVENT_FLAGS.MOUSEEVENTF_WHEEL;
+        scroll.Anonymous.mi.mouseData = (uint)scrollAmount;
 
         Add(scroll);
 
@@ -380,34 +409,37 @@ internal class InputBuilder : List<INPUT>
     /// <returns>This <see cref="InputBuilder"/> instance.</returns>
     public InputBuilder AddMouseHorizontalWheelScroll(int scrollAmount)
     {
-        var scroll = new INPUT { Type = (uint)InputType.Mouse };
-        scroll.Data.Mouse.Flags = (uint)MouseFlag.HorizontalWheel;
-        scroll.Data.Mouse.MouseData = (uint)scrollAmount;
+        var scroll = new INPUT
+        {
+            type = INPUT_TYPE.INPUT_MOUSE,
+        };
+        scroll.Anonymous.mi.dwFlags = MOUSE_EVENT_FLAGS.MOUSEEVENTF_HWHEEL;
+        scroll.Anonymous.mi.mouseData = (uint)scrollAmount;
 
         Add(scroll);
 
         return this;
     }
 
-    private static MouseFlag ToMouseButtonDownFlag(MouseButton button)
+    private static MOUSE_EVENT_FLAGS ToMouseButtonDownFlag(MouseButton button)
     {
         return button switch
         {
-            MouseButton.LeftButton => MouseFlag.LeftDown,
-            MouseButton.MiddleButton => MouseFlag.MiddleDown,
-            MouseButton.RightButton => MouseFlag.RightDown,
-            _ => MouseFlag.LeftDown,
+            MouseButton.LeftButton => MOUSE_EVENT_FLAGS.MOUSEEVENTF_LEFTDOWN,
+            MouseButton.MiddleButton => MOUSE_EVENT_FLAGS.MOUSEEVENTF_MIDDLEDOWN,
+            MouseButton.RightButton => MOUSE_EVENT_FLAGS.MOUSEEVENTF_RIGHTDOWN,
+            _ => MOUSE_EVENT_FLAGS.MOUSEEVENTF_LEFTDOWN,
         };
     }
 
-    private static MouseFlag ToMouseButtonUpFlag(MouseButton button)
+    private static MOUSE_EVENT_FLAGS ToMouseButtonUpFlag(MouseButton button)
     {
         return button switch
         {
-            MouseButton.LeftButton => MouseFlag.LeftUp,
-            MouseButton.MiddleButton => MouseFlag.MiddleUp,
-            MouseButton.RightButton => MouseFlag.RightUp,
-            _ => MouseFlag.LeftUp,
+            MouseButton.LeftButton => MOUSE_EVENT_FLAGS.MOUSEEVENTF_LEFTUP,
+            MouseButton.MiddleButton => MOUSE_EVENT_FLAGS.MOUSEEVENTF_MIDDLEUP,
+            MouseButton.RightButton => MOUSE_EVENT_FLAGS.MOUSEEVENTF_RIGHTUP,
+            _ => MOUSE_EVENT_FLAGS.MOUSEEVENTF_LEFTUP,
         };
     }
 }

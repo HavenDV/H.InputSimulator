@@ -1,0 +1,5 @@
+﻿// User32
+GetAsyncKeyState
+GetKeyState
+SendInput
+MapVirtualKey

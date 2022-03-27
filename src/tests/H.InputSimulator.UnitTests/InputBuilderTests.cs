@@ -11,7 +11,7 @@ public class InputBuilderTests
 
         builder.AddKeyDown(VirtualKeyCode.VK_A);
         builder.Count.Should().Be(1);
-        builder[0].Type.Should().Be((uint)InputType.Keyboard);
-        builder[0].Data.Keyboard.KeyCode.Should().Be((ushort)VirtualKeyCode.VK_A);
+        builder[0].type.Should().Be(Windows.Win32.UI.Input.KeyboardAndMouse.INPUT_TYPE.INPUT_KEYBOARD);
+        builder[0].Anonymous.ki.wVk.Should().Be(Windows.Win32.UI.Input.KeyboardAndMouse.VIRTUAL_KEY.VK_A);
     }
 }
