@@ -1,6 +1,4 @@
-﻿using WindowsInput.Native;
-
-namespace WindowsInput;
+﻿namespace WindowsInput;
 
 /// <summary>
 /// A helper class for building a list of <see cref="INPUT"/> messages ready 

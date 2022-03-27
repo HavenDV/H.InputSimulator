@@ -1,6 +1,4 @@
-﻿using WindowsInput.Native;
-
-namespace WindowsInput;
+﻿namespace WindowsInput;
 
 /// <summary>
 /// Implements the <see cref="IKeyboardSimulator"/> interface by calling 

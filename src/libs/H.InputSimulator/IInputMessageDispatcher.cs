@@ -1,6 +1,4 @@
-﻿using WindowsInput.Native;
-
-namespace WindowsInput;
+﻿namespace WindowsInput;
 
 /// <summary>
 /// The contract for a service that dispatches <see cref="INPUT"/> messages to the appropriate destination.

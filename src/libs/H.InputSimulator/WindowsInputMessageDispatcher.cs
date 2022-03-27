@@ -1,5 +1,4 @@
 ﻿using System.Runtime.InteropServices;
-using WindowsInput.Native;
 
 namespace WindowsInput;
 

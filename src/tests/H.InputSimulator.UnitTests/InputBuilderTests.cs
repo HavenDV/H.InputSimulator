@@ -1,4 +1,4 @@
-﻿namespace WindowsInput.Native.Tests;
+﻿namespace WindowsInput.Tests;
 
 [TestClass]
 public class InputBuilderTests

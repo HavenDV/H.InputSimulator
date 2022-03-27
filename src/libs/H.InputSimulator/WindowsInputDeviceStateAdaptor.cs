@@ -1,6 +1,4 @@
-﻿using WindowsInput.Native;
-
-namespace WindowsInput;
+﻿namespace WindowsInput;
 
 /// <summary>
 /// An implementation of <see cref="IInputDeviceStateAdaptor"/> for Windows by calling the native <see cref="PInvoke.GetKeyState"/> and <see cref="PInvoke.GetAsyncKeyState"/> methods.

@@ -1,6 +1,4 @@
-﻿using WindowsInput.Native;
-
-namespace WindowsInput.Tests;
+﻿namespace WindowsInput.Tests;
 
 [TestFixture]
 public class ReadmeExamples

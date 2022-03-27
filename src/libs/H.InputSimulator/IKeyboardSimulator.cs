@@ -1,6 +1,4 @@
-﻿using WindowsInput.Native;
-
-namespace WindowsInput;
+﻿namespace WindowsInput;
 
 /// <summary>
 /// The service contract for a keyboard simulator for the Windows platform.

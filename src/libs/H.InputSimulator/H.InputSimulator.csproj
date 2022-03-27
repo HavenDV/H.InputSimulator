@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup Label="Usings">
-    <Using Remove="System.Net.Http"/>
+    <Using Remove="System.Net.Http" />
   </ItemGroup>
 
   <ItemGroup>

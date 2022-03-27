@@ -1,4 +1,4 @@
-﻿namespace WindowsInput.Native;
+﻿namespace WindowsInput;
 
 /// <summary>
 /// The list of VirtualKeyCodes (see: http://msdn.microsoft.com/en-us/library/ms645540(VS.85).aspx)
