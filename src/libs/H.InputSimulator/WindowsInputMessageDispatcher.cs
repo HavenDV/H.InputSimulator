@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace WindowsInput;
+﻿namespace WindowsInput;
 
 /// <summary>
 /// Implements the <see cref="IInputMessageDispatcher"/> by calling <see cref="PInvoke.SendInput(uint, INPUT*, int)"/>.
@@ -26,11 +24,7 @@ internal class WindowsInputMessageDispatcher : IInputMessageDispatcher
         if (inputs.Length == 0) throw new ArgumentException("The input array was empty", nameof(inputs));
         fixed(INPUT* inputsPtr = inputs)
         {
-#if NETSTANDARD1_1
-            var successful = PInvoke.SendInput((uint)inputs.Length, inputsPtr, Marshal.SizeOf(typeof(INPUT)));
-#else
-            var successful = PInvoke.SendInput((uint)inputs.Length, inputsPtr, Marshal.SizeOf<INPUT>());
-#endif
+            var successful = PInvoke.SendInput((uint)inputs.Length, inputsPtr, sizeof(INPUT));
             if (successful != inputs.Length)
                 throw new InvalidOperationException("Some simulated input commands were not sent successfully. The most common reason for this happening are the security features of Windows including User Interface Privacy Isolation (UIPI). Your application can only send commands to applications of the same or lower elevation. Similarly certain commands are restricted to Accessibility/UIAutomation applications. Refer to the project home page and the code samples for more information.");
         }
