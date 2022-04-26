@@ -124,7 +124,7 @@ internal class InputBuilder : List<INPUT>
     /// <summary>
     /// Adds the character to the list of <see cref="INPUT"/> messages.
     /// </summary>
-    /// <param name="character">The <see cref="System.Char"/> to be added to the list of <see cref="INPUT"/> messages.</param>
+    /// <param name="character">The <see cref="char"/> to be added to the list of <see cref="INPUT"/> messages.</param>
     /// <returns>This <see cref="InputBuilder"/> instance.</returns>
     public InputBuilder AddCharacter(char character)
     {

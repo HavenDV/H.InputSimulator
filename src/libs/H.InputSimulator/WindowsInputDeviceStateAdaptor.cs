@@ -35,8 +35,8 @@ public class WindowsInputDeviceStateAdaptor : IInputDeviceStateAdaptor
     /// </remarks>
     public bool IsKeyDown(VirtualKeyCode keyCode)
     {
-        Int16 result = PInvoke.GetKeyState((UInt16)keyCode);
-        return (result < 0);
+        var result = PInvoke.GetKeyState((int)keyCode);
+        return result < 0;
     }
 
     /// <summary>
@@ -95,7 +95,7 @@ public class WindowsInputDeviceStateAdaptor : IInputDeviceStateAdaptor
     public bool IsHardwareKeyDown(VirtualKeyCode keyCode)
     {
         var result = PInvoke.GetAsyncKeyState((int)keyCode);
-        return (result < 0);
+        return result < 0;
     }
 
     /// <summary>

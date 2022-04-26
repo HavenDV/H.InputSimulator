@@ -81,27 +81,47 @@ public class KeyboardSimulator : IKeyboardSimulator
         InputBuilder builder,
         IEnumerable<VirtualKeyCode> modifierKeyCodes)
     {
-        if (modifierKeyCodes == null) return;
-        foreach (var key in modifierKeyCodes) builder.AddKeyDown(key);
+        if (modifierKeyCodes == null)
+        {
+            return;
+        }
+
+        foreach (var key in modifierKeyCodes)
+        {
+            builder.AddKeyDown(key);
+        }
     }
 
     private static void ModifiersUp(
         InputBuilder builder,
         IEnumerable<VirtualKeyCode> modifierKeyCodes)
     {
-        if (modifierKeyCodes == null) return;
+        if (modifierKeyCodes == null)
+        {
+            return;
+        }
 
         // Key up in reverse (I miss LINQ)
         var stack = new Stack<VirtualKeyCode>(modifierKeyCodes);
-        while (stack.Count > 0) builder.AddKeyUp(stack.Pop());
+        while (stack.Count > 0)
+        {
+            builder.AddKeyUp(stack.Pop());
+        }
     }
 
     private static void KeysPress(
         InputBuilder builder,
         IEnumerable<VirtualKeyCode> keyCodes)
     {
-        if (keyCodes == null) return;
-        foreach (var key in keyCodes) builder.AddKeyPress(key);
+        if (keyCodes == null)
+        {
+            return;
+        }
+
+        foreach (var key in keyCodes)
+        {
+            builder.AddKeyPress(key);
+        }
     }
 
     /// <summary>
@@ -277,8 +297,12 @@ public class KeyboardSimulator : IKeyboardSimulator
     public IKeyboardSimulator TextEntry(string text)
     {
         text = text ?? throw new ArgumentNullException(nameof(text));
-        if (text.Length > UInt32.MaxValue / 2) throw new ArgumentException(
-            $"The text parameter is too long. It must be less than {UInt32.MaxValue / 2} characters.", nameof(text));
+        if (text.Length > uint.MaxValue / 2)
+        {
+            throw new ArgumentException(
+            $"The text parameter is too long. It must be less than {uint.MaxValue / 2} characters.", nameof(text));
+        }
+
         var inputList = new InputBuilder().AddCharacters(text).ToArray();
         SendSimulatedInput(inputList);
         return this;

@@ -4,6 +4,7 @@
     <TargetFrameworks>net4.5.1;netstandard2.0;netstandard1.1;net5.0;net6.0</TargetFrameworks>
     <RootNamespace>WindowsInput</RootNamespace>
     <NoWarn>$(NoWarn);CA1707;CA1720;CA1712;CA1069;CA5392</NoWarn>
+    <NoWarn>$(NoWarn);IDE0190</NoWarn>
   </PropertyGroup>
 
   <ItemGroup Label="Usings">
