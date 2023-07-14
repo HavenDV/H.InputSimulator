@@ -24,7 +24,7 @@
   <ItemGroup Label="Nuget">
     <None Include="$(SolutionDir)assets\nuget_icon.png" Pack="true" PackagePath="\"/>
     <None Include="$(SolutionDir)README.md" Pack="true" PackagePath="\"/>
-    <PackageReference Include="ConventionalCommitsGitInfo" Version="0.3.5">
+    <PackageReference Include="ConventionalCommitsGitInfo" Version="0.3.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

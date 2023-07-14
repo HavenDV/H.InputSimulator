@@ -1,10 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net4.5.1;netstandard2.0;netstandard1.1;net5.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>net4.5.1;netstandard2.0;netstandard1.1;net6.0;net7.0</TargetFrameworks>
     <RootNamespace>WindowsInput</RootNamespace>
     <NoWarn>$(NoWarn);CA1707;CA1720;CA1712;CA1069;CA5392</NoWarn>
     <NoWarn>$(NoWarn);IDE0190</NoWarn>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
 
   <ItemGroup Label="Usings">
@@ -17,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.2.10-beta">
+    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.18-beta">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
