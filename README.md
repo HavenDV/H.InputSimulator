@@ -65,10 +65,11 @@ new InputSimulator().Keyboard
 
 ## Common problems
 ### Some simulated input commands were not sent successfully.
-Please think of the library as a high-level wrapper over Win32 calls. 
-In this case, over the call to SendInput. Unfortunately, this is a limitation of the API itself, according to this documentation: 
-https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-sendinput#remarks
-https://en.wikipedia.org/wiki/User_Interface_Privilege_Isolation 
+Please think of the library as a high-level wrapper over Win32 `SendInput` call. 
+Unfortunately, this is a limitation of the API itself, according to this documentation:
+- https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-sendinput#remarks
+- https://en.wikipedia.org/wiki/User_Interface_Privilege_Isolation
+
 The easiest way to get around this is to run your application as an administrator.
 
 ## Support
