@@ -300,7 +300,7 @@ internal class InputBuilder : List<INPUT>
             type = INPUT_TYPE.INPUT_MOUSE,
         };
         buttonDown.Anonymous.mi.dwFlags = MOUSE_EVENT_FLAGS.MOUSEEVENTF_XDOWN;
-        buttonDown.Anonymous.mi.mouseData = xButtonId;
+        buttonDown.Anonymous.mi.mouseData = (uint)xButtonId;
         Add(buttonDown);
 
         return this;
@@ -335,7 +335,7 @@ internal class InputBuilder : List<INPUT>
             type = INPUT_TYPE.INPUT_MOUSE,
         };
         buttonUp.Anonymous.mi.dwFlags = MOUSE_EVENT_FLAGS.MOUSEEVENTF_XUP;
-        buttonUp.Anonymous.mi.mouseData = xButtonId;
+        buttonUp.Anonymous.mi.mouseData = (uint)xButtonId;
         Add(buttonUp);
 
         return this;
@@ -393,7 +393,7 @@ internal class InputBuilder : List<INPUT>
             type = INPUT_TYPE.INPUT_MOUSE,
         };
         scroll.Anonymous.mi.dwFlags = MOUSE_EVENT_FLAGS.MOUSEEVENTF_WHEEL;
-        scroll.Anonymous.mi.mouseData = scrollAmount;
+        scroll.Anonymous.mi.mouseData = (uint)scrollAmount;
 
         Add(scroll);
 
@@ -412,7 +412,7 @@ internal class InputBuilder : List<INPUT>
             type = INPUT_TYPE.INPUT_MOUSE,
         };
         scroll.Anonymous.mi.dwFlags = MOUSE_EVENT_FLAGS.MOUSEEVENTF_HWHEEL;
-        scroll.Anonymous.mi.mouseData = scrollAmount;
+        scroll.Anonymous.mi.mouseData = (uint)scrollAmount;
 
         Add(scroll);
 
