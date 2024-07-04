@@ -294,9 +294,14 @@ public class KeyboardSimulator : IKeyboardSimulator
     /// KeyUp messages in order to simulate uninterrupted text entry via the keyboard.
     /// </summary>
     /// <param name="text">The text to be simulated.</param>
-    public IKeyboardSimulator TextEntry(string text)
+    public IKeyboardSimulator TextEntry(string? text)
     {
-        text = text ?? throw new ArgumentNullException(nameof(text));
+        // If the text is NULL or an empty string, nothing is done instead of throwing an exception.
+        if (string.IsNullOrEmpty(text))
+        {
+            return this;
+        }
+
         if (text.Length > uint.MaxValue / 2)
         {
             throw new ArgumentException(
