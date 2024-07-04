@@ -20,10 +20,7 @@ internal class WindowsInputMessageDispatcher : IInputMessageDispatcher
     /// <exception cref="Exception">If the any of the commands in the <paramref name="inputs"/> array could not be sent successfully.</exception>
     public unsafe void DispatchInput(INPUT[] inputs)
     {
-        if (inputs == null)
-        {
-            throw new ArgumentNullException(nameof(inputs));
-        }
+        inputs = inputs ?? throw new ArgumentNullException(nameof(inputs));
         if (inputs.Length == 0)
         {
             throw new ArgumentException("The input array was empty", nameof(inputs));

@@ -297,7 +297,8 @@ public class KeyboardSimulator : IKeyboardSimulator
     public IKeyboardSimulator TextEntry(string? text)
     {
         // If the text is NULL or an empty string, nothing is done instead of throwing an exception.
-        if (string.IsNullOrEmpty(text))
+        if (text == null ||
+            string.IsNullOrEmpty(text))
         {
             return this;
         }
