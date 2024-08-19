@@ -23,6 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 		.github\workflows\pull-request.yml = .github\workflows\pull-request.yml
 		.github\dependabot.yml = .github\dependabot.yml
+		.github\workflows\auto-merge.yml = .github\workflows\auto-merge.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H.InputSimulator.UnitTests", "src\tests\H.InputSimulator.UnitTests\H.InputSimulator.UnitTests.csproj", "{F2548AE2-D736-4C21-942F-55C4F592EFF2}"
