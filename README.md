@@ -3,7 +3,8 @@ Allows you to simulate global mouse and keyboard events.
 Features:
 - Supports scan codes and multi-language input.
 - Supports WPF/WinForms/Console windows apps.
-- Supports .NET Standard, .Net Core and .Net 5.
+- Supports .NET Standard 2.0+, .Net Framework 4.6.2 and .Net 8+.
+- Supports trimming/nativeAOT, nullability, and other modern C# features.
 
 Supported OS:
 - Windows

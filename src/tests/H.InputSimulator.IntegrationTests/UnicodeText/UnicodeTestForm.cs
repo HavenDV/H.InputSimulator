@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace WindowsInput.Tests.UnicodeText;
 
 public partial class UnicodeTestForm : Form
@@ -7,6 +9,7 @@ public partial class UnicodeTestForm : Form
         InitializeComponent();
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string Expected
     {
         get { return ExpectedTextBox.Text; }

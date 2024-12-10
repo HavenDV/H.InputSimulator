@@ -30,6 +30,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H.InputSimulator.UnitTests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H.InputSimulator.IntegrationTests", "src\tests\H.InputSimulator.IntegrationTests\H.InputSimulator.IntegrationTests.csproj", "{AA028745-7520-4DB3-A047-9299D6FD2413}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "helpers", "helpers", "{87192D70-B0E1-4BFC-A05E-06A16765E1C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrimmingHelper", "src\helpers\TrimmingHelper\TrimmingHelper.csproj", "{0816DBD8-AD39-497F-824B-6DCD5B16D37D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +52,10 @@ Global
 		{AA028745-7520-4DB3-A047-9299D6FD2413}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA028745-7520-4DB3-A047-9299D6FD2413}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA028745-7520-4DB3-A047-9299D6FD2413}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0816DBD8-AD39-497F-824B-6DCD5B16D37D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0816DBD8-AD39-497F-824B-6DCD5B16D37D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0816DBD8-AD39-497F-824B-6DCD5B16D37D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0816DBD8-AD39-497F-824B-6DCD5B16D37D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +64,7 @@ Global
 		{8C39C5CD-A8D1-4528-9FCE-0190BD515466} = {6E5BF389-3D3F-4D74-9DD0-3B199CB529C5}
 		{F2548AE2-D736-4C21-942F-55C4F592EFF2} = {9CAA231D-7BE1-46C9-ACD6-EB2E569CEBEA}
 		{AA028745-7520-4DB3-A047-9299D6FD2413} = {9CAA231D-7BE1-46C9-ACD6-EB2E569CEBEA}
+		{0816DBD8-AD39-497F-824B-6DCD5B16D37D} = {87192D70-B0E1-4BFC-A05E-06A16765E1C5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1493AEE4-9211-46E9-BFE6-8F629EAC5693}
