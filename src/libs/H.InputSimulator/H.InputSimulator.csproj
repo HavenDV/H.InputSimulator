@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.242">
+    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.248">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="Microsoft.NET.ILLink.Tasks" Version="9.0.10" />
+    <PackageReference Include="Microsoft.NET.ILLink.Tasks" Version="9.0.11" />
     <PackageReference Include="System.Memory" Version="4.6.0" />
   </ItemGroup>
 
