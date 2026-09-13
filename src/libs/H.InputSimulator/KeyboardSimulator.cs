@@ -191,7 +191,7 @@ public class KeyboardSimulator : IKeyboardSimulator
         keyCodes = keyCodes ?? throw new ArgumentNullException(nameof(keyCodes));
 
         var builder = new InputBuilder();
-        foreach (var code in keyCodes.Reverse())
+        foreach (var code in Enumerable.Reverse(keyCodes))
         {
             builder.AddKeyUp(code);
         }
